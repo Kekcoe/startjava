@@ -3,8 +3,8 @@ src
 
 startjava
 
-*.ini
+/*.ini
 
-*.html
+/*.html
 
-*.txt
+/*.txt
