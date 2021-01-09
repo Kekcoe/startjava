@@ -1,0 +1,10 @@
+# class files
+src
+
+startjava
+
+*.ini
+
+*.html
+
+*.txt
