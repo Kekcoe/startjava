@@ -1,27 +1,48 @@
 package com.startjava.lesson_2_3.calculator;
 
 public class Calculator {
-	 private  int firstNumb;
-	 private  int secondNumb;
-	 private char sign;
+    public int getFirstNumb() {
+        return firstNumb;
+    }
 
-	 public Calculator(String mathExpression) {
-		 String[] arrExpression = mathExpression.split(" ");
-		 firstNumb = Integer.parseInt(arrExpression[0]);
-		 sign = arrExpression[1].charAt(0);
-		 secondNumb = Integer.parseInt(arrExpression[2]);
-	 }
+    public int getSecondNumb() {
+        return secondNumb;
+    }
 
-		 public void calculate() {
-			 switch (sign) {
-				 case '+' -> System.out.println(firstNumb + " + " + secondNumb + " = " + Math.addExact(firstNumb, secondNumb));
-				 case '-' -> System.out.println(firstNumb + " - " + secondNumb + " = " + (firstNumb - secondNumb));
-				 case '*' -> System.out.println(firstNumb + " * " + secondNumb + " = " + (firstNumb * secondNumb));
-				 case '/' -> System.out.println(firstNumb + " / " + secondNumb + " = " + Math.floorDiv(firstNumb, secondNumb));
-				 case '^' -> System.out.println(firstNumb + " ^ " + secondNumb + " = " + Math.pow(firstNumb, secondNumb));
-				 case '%' -> System.out.println(firstNumb + " % " + secondNumb + " = " + (firstNumb % secondNumb));
-				 default -> System.out.println("Введи знак мат.операции " + " + " + " - " + " * " + " / " + " ^ " + " % ");
-			 }
-		}
+    public char getSign() {
+        return sign;
+    }
+
+    private final int firstNumb;
+    private final int secondNumb;
+    private final char sign;
+
+    public Calculator(String mathExpression) {
+        String[] arrExpression = mathExpression.split(" ");
+        firstNumb = Integer.parseInt(arrExpression[0]);
+        sign = arrExpression[1].charAt(0);
+        secondNumb = Integer.parseInt(arrExpression[2]);
+    }
+
+    public int calculate() {
+        switch (sign) {
+            case '+':
+                return Math.addExact(firstNumb, secondNumb);
+            case '-':
+                return firstNumb - secondNumb;
+            case '*':
+                return firstNumb * secondNumb;
+            case '/':
+                return firstNumb / secondNumb;
+            case '^':
+                return (int) Math.pow(firstNumb, secondNumb);
+            case '%':
+                return (firstNumb % secondNumb);
+            default:
+                System.out.println("Введи знак мат.операции " + " + " + " - " + " * " + " / " + " ^ " + " % ");
+            return 0;
+        }
+
+    }
 
 }
