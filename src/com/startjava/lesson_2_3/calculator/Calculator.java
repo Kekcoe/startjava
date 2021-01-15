@@ -12,6 +12,10 @@ public class Calculator {
         secondNumb = Integer.parseInt(arrExpression[2]);
     }
 
+    public char getSign() {
+        return sign;
+    }
+
     public int calculate() {
         switch (sign) {
             case '+':
@@ -27,7 +31,7 @@ public class Calculator {
             case '%':
                 return (firstNumb % secondNumb);
             default:
-                System.out.println("Введи знак мат.операции " + " + " + " - " + " * " + " / " + " ^ " + " % ");
+                System.out.println("Знак математической операции "+ getSign() + " не поддерживается ввведи корректный.");
                 return 0;
         }
     }

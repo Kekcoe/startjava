@@ -11,7 +11,7 @@ class CalculatorTest {
             do {
                 System.out.println("Введите  выражение по типу a + b через пробел: ");
                 mathExpression = sc.nextLine();
-            } while (mathExpression == null);
+            } while (mathExpression.equals(""));
             Calculator calc = new Calculator(mathExpression);
             System.out.println(calc.calculate());
             do {
