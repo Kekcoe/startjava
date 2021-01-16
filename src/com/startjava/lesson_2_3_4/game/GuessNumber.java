@@ -5,70 +5,66 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class GuessNumber {
-
+    int secretNumber;
     private final Player player1;
     private final Player player2;
+    private int playerTry;
+
 
     GuessNumber(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
     }
 
-    public int[] playerResult(int[] playerTries, int indexArray) {
-        int[] playerResult = Arrays.copyOf(playerTries, indexArray);
-        return playerResult;
-    }
 
     public void play() {
         Random random = new Random();
-        int secretNumber = random.nextInt((100) + 1);
-        Scanner sc = new Scanner(System.in);
-        int[] player1Tries = new int[10];
-        int[] player2Tries = new int[10];
-        int index1 = 0;
-        int index2 = 0;
-        while (true) {
-            System.out.print(player1.getName() + " input your number ");
-            player1Tries[index1] = sc.nextInt();
-            if (player1Tries[index1] == secretNumber) {
-                index1++;
-                System.out.println("Player " + player1.getName() + " guessed the number from " + index1 + " try");
-                System.out.println(player2.getName() + " " + Arrays.toString(playerResult(player2Tries, index2)));
-                System.out.println(player1.getName() + " " + Arrays.toString(playerResult(player1Tries, index1)));
-                break;
-            } else if (player1Tries[index1] < secretNumber) {
-                System.out.println(player1.getName() + " " + "введенное вами число " + player1Tries[index1] + " меньше того, что загадал компьютер");
-            } else if (player1Tries[index1] > secretNumber) {
-                System.out.println(player1.getName() + " " + "введенное вами число " + player1Tries[index1] + " больше того, что загадал компьютер");
-            }
-            index1++;
-            if (index1 == 10) {
-                System.out.println(player1.getName() + " has out of tries " + player2.getName() + " won");
-                System.out.println(player1.getName() + (Arrays.toString(playerResult(player1Tries, index1))));
-                System.out.println(player2.getName() + (Arrays.toString(playerResult(player2Tries, index2))));
+        secretNumber = random.nextInt(101);
+        do {
+            inputNumber(player1);
+            if (compareNumber(player1)) {
                 break;
             }
+            inputNumber(player2);
+            if (compareNumber(player2)) {
+                break;
+            }
+            playerTry++;
+            if (playerTry == 10) {
+                System.out.println(" Yours tries has over");
+                break;
+            }
+        } while (true);
 
-            System.out.print(player2.getName() + " input your number ");
-            player2Tries[index2] = sc.nextInt();
-            if (player2Tries[index2] == secretNumber) {
-                index2++;
-                System.out.println("Player " + player2.getName() + " guessed the number from " + index2 + " try");
-                System.out.println(player1.getName() + " " + Arrays.toString(playerResult(player1Tries, index1)));
-                System.out.println(player2.getName() + " " + Arrays.toString(playerResult(player2Tries, index2)));
-                break;
-            } else if (player1Tries[index2] < secretNumber) {
-                System.out.println(player2.getName() + " " + "введенное вами число " + player2Tries[index2] + " меньше того, что загадал компьютер");
-            } else if (player1Tries[index2] > secretNumber) {
-                System.out.println(player2.getName() + " " + "введенное вами число " + player2Tries[index2] + " больше того, что загадал компьютер");
-            }
-            index2++;
-            if (index2 == 10) {
-                System.out.println(player2.getName() + " has out of tries " + player1.getName() + " won");
-                System.out.println(player2.getName() + (Arrays.toString(playerResult(player2Tries, index2))));
-                System.out.println(player1.getName() + (Arrays.toString(playerResult(player1Tries, index1))));
-                break;
-            }
+        showPlayerNumbers(player1);
+        showPlayerNumbers(player2);
+        playerTry = 0;
+        Arrays.fill(player1.getPlayerTries(), 0);
+        Arrays.fill(player2.getPlayerTries(), 0);
+    }
+
+
+    public void inputNumber(Player player) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(player.getName() + " input your number ");
+        player.setPlayerTries(playerTry, sc.nextInt());
+    }
+
+    public boolean compareNumber(Player player) {
+        if (player.getPlayerTries()[playerTry] == secretNumber) {
+            System.out.println("Player " + player.getName() + " guessed the number from " + playerTry + " try");
+            return true;
         }
+        String result = player.getPlayerTries()[playerTry] > secretNumber ? "больше" : "меньше";
+        System.out.println(player.getName() + " число введенное вами " + result + " того, что загадал компьютер");
+        return false;
+    }
+
+    private void showPlayerNumbers(Player player) {
+        System.out.println(player.getName());
+        for (int i = 0; i < playerTry; i++) {
+            System.out.print(player.getPlayerTries()[i] + " ");
+        }
+        System.out.println();
     }
 }
