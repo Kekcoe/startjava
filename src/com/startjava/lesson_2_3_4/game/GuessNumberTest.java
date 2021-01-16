@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 class GuessNumberTest {
     public static void main(String[] args) {
-        System.out.println("Game on \nYou have 10 tries to guess");
+        System.out.println("Game on! \nYou have 10 tries to guess");
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Player one, input your name: ");
