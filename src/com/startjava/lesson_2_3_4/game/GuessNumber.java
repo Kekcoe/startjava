@@ -5,17 +5,16 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class GuessNumber {
-    int secretNumber;
+    private int secretNumber;
     private final Player player1;
     private final Player player2;
     private int playerTry;
-
+    private int playerLastNumber;
 
     GuessNumber(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
     }
-
 
     public void play() {
         Random random = new Random();
@@ -36,13 +35,12 @@ public class GuessNumber {
             }
         } while (true);
 
-        showPlayerNumbers(player1);
-        showPlayerNumbers(player2);
+        showPlayerNumbers(player1, playerTry);
+        showPlayerNumbers(player2, playerTry);
         playerTry = 0;
-        Arrays.fill(player1.getPlayerTries(), 0);
-        Arrays.fill(player2.getPlayerTries(), 0);
+        Arrays.fill(player1.getTries(), 0);
+        Arrays.fill(player2.getTries(), 0);
     }
-
 
     public void inputNumber(Player player) {
         Scanner sc = new Scanner(System.in);
@@ -51,20 +49,22 @@ public class GuessNumber {
     }
 
     public boolean compareNumber(Player player) {
-        if (player.getPlayerTries()[playerTry] == secretNumber) {
-            System.out.println("Player " + player.getName() + " guessed the number from " + playerTry + " try");
+        playerLastNumber = (player.getTries()[playerTry]);
+        if (playerLastNumber == secretNumber) {
+            System.out.println("Player " + player.getName() + " guessed the number from " + (playerTry + 1) + " try");
             return true;
         }
-        String result = player.getPlayerTries()[playerTry] > secretNumber ? "больше" : "меньше";
+        String result = playerLastNumber > secretNumber ? "больше" : "меньше";
         System.out.println(player.getName() + " число введенное вами " + result + " того, что загадал компьютер");
         return false;
     }
 
-    private void showPlayerNumbers(Player player) {
+    private void showPlayerNumbers(Player player, int lengthTries) {
         System.out.println(player.getName());
-        for (int i = 0; i < playerTry; i++) {
-            System.out.print(player.getPlayerTries()[i] + " ");
+        for (int i = 0; i <= lengthTries; i++) {
+            System.out.print(player.getTries()[i] + " ");
         }
         System.out.println();
     }
+
 }
