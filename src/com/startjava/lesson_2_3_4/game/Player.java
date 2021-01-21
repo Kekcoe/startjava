@@ -1,35 +1,27 @@
 package com.startjava.lesson_2_3_4.game;
 
+
 import java.util.Arrays;
 
 class Player {
     private String name;
-    private int[] tries = new int[10];
-    int lastNumber;
-    int attempt;
+    private int[] enteredNumber = new int[10];
+    private int attempt;
 
     public Player(String name) {
         this.name = name;
-    }
-
-    public int getLastNumber() {
-        return lastNumber;
-    }
-
-    public void setLastNumber(int lastNumber) {
-        this.lastNumber = lastNumber;
     }
 
     public String getName() {
         return name;
     }
 
-    public int[] getTries() {
-        return tries;
+    public int[] getEnteredNumber() {
+        return enteredNumber;
     }
 
-    public void setTries(int index, int playerNumber) {
-        tries[index] = playerNumber;
+    public void setEnteredNumber(int attempt, int playerNumber) {
+        enteredNumber[attempt] = playerNumber;
     }
 
     public int getAttempt() {
@@ -40,9 +32,7 @@ class Player {
         this.attempt = attempt;
     }
 
-    public void outputTries(int[] tries, int attempt) {
-        for (int number : Arrays.copyOf(tries, attempt + 1)) {
-            System.out.print(number + " ");
-        }
+    public void fillZero() {
+        Arrays.fill(this.enteredNumber, 0, this.attempt + 1,0);
     }
 }
